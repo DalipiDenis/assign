@@ -1,0 +1,14 @@
+<header>
+  <div class="nav-container">
+    <img src="./assets/task_manager.png" alt="Logo" class="logo">
+    <nav>
+      <ul>
+        <li><a routerLink="/" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">Home</a></li>
+        <li><a routerLink="/users" [routerLinkActive]="'active'">Users</a></li>
+        <li><a routerLink="/projects" [routerLinkActive]="'active'">Projects</a></li>
+        <li><a routerLink="/tasks" [routerLinkActive]="'active'">Tasks</a></li>
+        <li><a routerLink="/teams" [routerLinkActive]="'active'">Teams</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>

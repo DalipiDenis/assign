@@ -1,0 +1,52 @@
+<div>
+  <h1>Team Management</h1>
+  <mat-table [dataSource]="teams">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+        <mat-cell *matCellDef="let team">{{ team.id }}</mat-cell>
+      </ng-container>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+      <mat-cell *matCellDef="let team">{{ team.name }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+      <mat-cell *matCellDef="let team">{{ team.description }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+      <mat-cell *matCellDef="let team">
+        <button mat-raised-button color="primary" (click)="editTeam(team)">Edit</button>
+        <button mat-raised-button color="warn" (click)="deleteTeam(team)">Delete</button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
+
+<div *ngIf="editedTeam">
+<h2>Edit Team</h2>
+<mat-form-field>
+  <mat-label>Name</mat-label>
+  <input matInput [(ngModel)]="editedTeam.name">
+</mat-form-field>
+<mat-form-field>
+  <mat-label>Description</mat-label>
+  <input matInput [(ngModel)]="editedTeam.description">
+</mat-form-field>
+<button mat-raised-button color="primary" (click)="saveChanges()">Save</button>
+<button mat-raised-button color="accent" (click)="cancelEditing()">Cancel</button>
+</div>
+<div *ngIf="!editedTeam">
+<h2>Add Team</h2>
+<mat-form-field>
+  <mat-label>Name</mat-label>
+  <input matInput #name>
+</mat-form-field>
+<mat-form-field>
+  <mat-label>Description</mat-label>
+  <input matInput #description>
+</mat-form-field>
+<button mat-raised-button color="primary" (click)="addTeam(name.value, description.value, [], []); name.value=''; description.value=''">Add</button>
+</div>
+</div>

@@ -1,0 +1,52 @@
+<div>
+  <h1>Project Management</h1>
+  <mat-table [dataSource]="projects">
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+      <mat-cell *matCellDef="let project">{{ project.id }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+      <mat-cell *matCellDef="let project">{{ project.name }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+      <mat-cell *matCellDef="let project">{{ project.description }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+      <mat-cell *matCellDef="let project">
+        <button mat-raised-button color="primary" (click)="editProject(project)">Edit</button>
+        <button mat-raised-button color="warn" (click)="deleteProject(project)">Delete</button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+
+  <div *ngIf="editedProject">
+    <h2>Edit Project</h2>
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput [(ngModel)]="editedProject.name">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <input matInput [(ngModel)]="editedProject.description">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="saveChanges()">Save</button>
+    <button mat-raised-button color="accent" (click)="cancelEditing()">Cancel</button>
+  </div>
+  <div *ngIf="!editedProject">
+    <h2>Add Project</h2>
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput #name>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <input matInput #description>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="addProject(name.value, description.value); name.value=''; description.value=''">Add</button>
+  </div>
+</div>
